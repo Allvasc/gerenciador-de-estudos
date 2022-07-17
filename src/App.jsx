@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
+import Timer from './components/Timer';
 
 function App() {
-  const dataAtual = new Date();
-  const hora = dataAtual.getHours();
-  const minutos = dataAtual.getMinutes();
-  const [initialHour, setInicialHour] = useState();
+
+  const [timers, setTimers] = useState ([])
+
+  function addItem() {
+    setTimers(timers.concat(<Timer key={timers.length} />));
+  }
+
+  console.log(timers)
 
   return (
     <div>
-      <p>{initialHour}</p>
-
-      <button onClick={() => setInicialHour(hora + ":" + minutos)}></button>
+      <div id='div1'>
+      <div>{timers}</div>
+        <button onClick={addItem}>Click me</button>
+      </div>
     </div>
   )
-}
 
+}
 export default App

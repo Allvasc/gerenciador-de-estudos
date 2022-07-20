@@ -9,35 +9,49 @@ const Timer = () => {
   const [count, setCount] = useState(0)
   const [conta, setConta] = useState(0)
 
-  useEffect(() => {
-      setTimeout(() => setCount(count + 1), 1000);
-      if (initialHour != '00:00') {
-        setConta(count)
-      }
-      if (finalHour != '00:00') {
-        setConta(conta)
-      }
+  const startCount = () => {
+    setInicialHour(hora + ":" + minutos)
 
+  }
+
+  const stopCount = () => {
+    setFinalHour(hora + ":" + minutos)
+
+  }
+
+  useEffect(() => {
+    if (initialHour != '00:00') {
+      setInterval(() => setCount(count+1), 1000);
+      setConta(count)
+    }
+
+    if (finalHour != '00:00') {
+      setInterval(() => setCount(count+1), 1000);
+      clearInterval(count)
+    }
   }, [count]);
 
+  console.log(count)
 
 
-  return (
-    <div className='timeLine'>
-      <div>
-        <p>{initialHour}</p>
-        <button onClick={() => setInicialHour(hora + ":" + minutos)}>start</button>
-      </div>
 
-      <div>
-        <p>{finalHour}</p>
-        <button onClick={() => setFinalHour(hora + ":" + minutos)}>stop</button>
-      </div>
-      <div>
-        <p>Tempo corrido = {conta}</p>
-      </div>
+
+return (
+  <div className='timeLine'>
+    <div>
+      <p>{initialHour}</p>
+      <button onClick={() => startCount()}>start</button>
     </div>
-  )
+
+    <div>
+      <p>{finalHour}</p>
+      <button onClick={() => stopCount()}>stop</button>
+    </div>
+    <div>
+      <p>Tempo corrido = {conta}</p>
+    </div>
+  </div>
+)
 }
 
 export default Timer
